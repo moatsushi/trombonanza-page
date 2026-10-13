@@ -1,0 +1,36 @@
+runtime: python312
+entrypoint: gunicorn -b :$PORT app:app
+
+handlers:
+  - url: /static
+    static_dir: dist/static
+    secure: always
+
+  - url: /concert/(.*)
+    static_files: dist/concert/\1.html
+    upload: dist/concert/.*\.html
+    secure: always
+
+  - url: /archive/(.*)
+    static_files: dist/archive/\1.html
+    upload: dist/archive/.*\.html
+    secure: always
+
+  - url: /archive
+    static_files: dist/archive.html
+    upload: dist/archive\.html
+    secure: always
+
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index\.html
+    secure: always
+
+  - url: /api/.*
+    script: auto
+    secure: always
+
+  - url: /.*
+    static_files: dist/404.html
+    upload: dist/404\.html
+    secure: always

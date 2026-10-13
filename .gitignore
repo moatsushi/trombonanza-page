@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+concert-.sqlite
+prompt.txt
+dist/
+.app.deploy.yaml
+.wrangler/
+.dev.vars
+node_modules/

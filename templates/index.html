@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <header class="hero">
+        <img src="{{ url_for('static', filename='images/member.jpg') }}" alt="トロンボナンザ メンバー集合写真" class="hero-img">
+        <div class="hero-overlay">
+            <div class="hero-content container">
+                <p class="eyebrow">Trombone Ensemble · Since 1980</p>
+                <h1 class="mb-4">Trombo<span>nanza</span></h1>
+                <p class="hero-lead">大編成トロンボーンアンサンブル</p>
+                <a class="hero-cta" href="#next-concert">次回演奏会を見る <span aria-hidden="true">↓</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Next Concert Section -->
+        <section id="next-concert" class="py-5">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="concert-info p-4 p-md-5">
+                            <p class="eyebrow text-accent">Upcoming</p>
+                            <h2 class="section-title mb-4">Next Concert</h2>
+                            <h3 class="concert-name mb-4">第47回定期演奏会</h3>
+                            <div class="concert-details mb-4">
+                                <div class="detail-row"><span>日時</span><strong>2027.01.09 SAT<br><small>13:30開場 / 14:00開演</small></strong></div>
+                                <div class="detail-row"><span>会場</span><strong>江東区文化センター ホール</strong></div>
+                                <div class="detail-row"><span>指揮</span><strong>山田 裕治</strong></div>
+                            </div>
+                            <div class="concert-program mb-4">
+                                <p class="program-heading">Program</p>
+                                <div class="program-item">
+                                    <span>レスピーギ</span>
+                                    <strong>交響詩「ローマの松」</strong>
+                                </div>
+                                <div class="program-item">
+                                    <span>フォーレ</span>
+                                    <strong>パヴァーヌ</strong>
+                                </div>
+                                <div class="program-item">
+                                    <span>Andrew Markel</span>
+                                    <strong>Fanfare to the Morning star</strong>
+                                </div>
+                            </div>
+                            <a href="#contact" class="btn btn-vivid">お問い合わせ</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="poster-container text-center">
+                            <div class="poster-frame">
+                                <span class="poster-label">Next concert · 47th</span>
+                                <img src="{{ url_for('static', filename='images/concert/47th.jpg') }}" alt="第47回定期演奏会チラシ" class="img-fluid poster-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-5">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <p class="eyebrow text-center">Our story</p>
+                        <h2 class="section-title section-title-centered text-center mb-5">About Us</h2>
+                        <div class="about-content">
+                            <p>
+                                私たちトロンボナンザは、山田裕治先生、東京科学大学管弦楽団（旧東京工業大学管弦楽団）のメンバーを中心に1980年に始まったアマチュアトロンボーンアンサンブルの団体です。
+                            </p>
+                            <p>
+                                現在は、山田先生のご指導のもと、学生から社会人まで幅広い層のメンバー約30人で、年1回の定期演奏会を中心に活動しています。
+                                トロンボーンアンサンブル・トロンボナンザの演奏会の特徴は、大編成（20人〜30人）のアンサンブルを必ず取り上げていることです。
+                            </p>
+                            <p>
+                                大編成ではオリジナルの曲や、オーケストラ、オルガンの作品からの編曲も多く演奏してきました。また、それ以外にも、ポピュラー、クラシック、オリジナルの四重奏・八重奏や、打楽器、オルガン付きの曲も演奏しています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-5">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="contact-card p-4 p-md-5">
+                            <p class="eyebrow text-accent text-center">Get in touch</p>
+                            <h2 class="section-title section-title-centered text-center mb-4">Contact</h2>
+                            <p class="text-center mb-5">ご質問・ご意見等ございましたら、下記のフォームよりお気軽にお問い合わせください。</p>
+                            
+                            <form id="contactForm" action="{{ contact_api_url }}" method="post">
+                                <div class="mb-4">
+                                    <label for="name" class="form-label fw-bold">Name</label>
+                                    <input type="text" class="form-control form-control-lg" id="name" name="name" autocomplete="name" maxlength="80" required placeholder="お名前">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="form-label fw-bold">Email</label>
+                                    <input type="email" class="form-control form-control-lg" id="email" name="email" autocomplete="email" maxlength="254" required placeholder="name@example.com">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="message" class="form-label fw-bold">Message</label>
+                                    <textarea class="form-control form-control-lg" id="message" name="message" rows="5" minlength="5" maxlength="4000" required placeholder="お問い合わせ内容"></textarea>
+                                </div>
+                                <div class="contact-trap" aria-hidden="true">
+                                    <label for="website">Website</label>
+                                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                                </div>
+                                <p class="form-status mt-3 mb-0" id="contactStatus" role="status" aria-live="polite"></p>
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-vivid btn-lg px-5">送信する</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

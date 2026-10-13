@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ stage.name }} - トロンボーンアンサンブル トロンボナンザ{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="concert-detail-container container">
+    <div class="row">
+        <div class="col-lg-8">
+            <header class="concert-header">
+                <p class="eyebrow text-accent">Concert archive</p>
+                <h1>{{ stage.name }}</h1>
+                <p class="concert-meta">{{ stage.date | format_jdn }} <span>·</span> {{ stage.hall }}</p>
+            </header>
+
+            <section class="piece-list">
+                <h2>Program</h2>
+                <table class="table table-borderless">
+                    <tbody>
+                        {% for piece in pieces %}
+                        <tr class="mb-4">
+                            <td>
+                                <div class="mb-1">
+                                    <span class="text-muted small d-block">
+                                        {% if composer_links[piece.composer] and composer_links[piece.composer]|length > 0 %}
+                                            <a href="#" class="composer-link" data-composer="{{ piece.composer }}">{{ piece.composer }}</a>
+                                        {% else %}
+                                            {{ piece.composer }}
+                                        {% endif %}
+                                        {% if piece.arranger and piece.arranger != "0" %} (arr. {{ piece.arranger }}){% endif %}
+                                    </span>
+                                    <span class="h5 fw-bold">{{ piece.name }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- モーダルウィンドウ -->
+                <div id="composer-modal" class="modal" tabindex="-1" style="display:none; position:fixed; z-index:1050; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2);">
+                  <div class="modal-dialog" style="max-width:400px; margin:10vh auto;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="composer-modal-title"></h5>
+                        <button type="button" class="btn-close" id="composer-modal-close" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body" id="composer-modal-body"></div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+        
+        <div class="col-lg-4 mt-5 mt-lg-0">
+            {% if stage.imageurl %}
+            <div class="text-center">
+                <img src="{{ url_for('static', filename=stage.imageurl) }}" alt="{{ stage.name }} チラシ" class="poster-img-detail">
+            </div>
+            {% endif %}
+            
+            <div class="venue-card mt-4 p-4">
+                <h3 class="h5 fw-bold">会場情報</h3>
+                <p class="mb-0">{{ stage.hall }}</p>
+                <p class="text-muted small">{{ stage.date | format_jdn }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <a href="{{ url_for('archive') }}" class="back-link">← アーカイブ一覧に戻る</a>
+    </div>
+</div>
+<script>
+window.composerLinks = {
+    {% for composer, links in composer_links.items() %}
+    "{{ composer }}": [
+        {% for entry in links %}
+        {
+            page: "{{ entry.page }}",
+            concert_name: "{{ entry.concert_name }}",
+            piece_name: "{{ entry.piece_name }}"
+        },
+        {% endfor %}
+    ],
+    {% endfor %}
+};
+</script>
+{% endblock %}
